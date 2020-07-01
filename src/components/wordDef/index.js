@@ -25,7 +25,10 @@ export default WordDefinition = ({def, hideFav}) => {
     word = 'Definition not found.'
   }
 
-  let speakMp3 = Helper.carefullyGetValue(def, ['results', '0', 'lexicalEntries', '0', 'pronunciations', '0', 'audioFile']);
+  // 20200701 - Oxford API changed the returned JSON structure by introducing a new element call entries after lexicalEntries
+  //            This issue is reported by Youtube user Falcon Tan.
+  //let speakMp3 = Helper.carefullyGetValue(def, ['results', '0', 'lexicalEntries', '0', 'pronunciations', '0', 'audioFile']);
+  let speakMp3 = Helper.carefullyGetValue(def, ['results', '0', 'lexicalEntries', '0', 'entries', '0', 'pronunciations', '0', 'audioFile']);
   
   Helper.isFav(orgWord)
   .then(result => {
